@@ -1685,11 +1685,13 @@ Exclude buffers whose name starts with a space, when they are not
 visiting a file.  The current buffer is always included."
   (delq nil
         (mapcar #'(lambda (b)
+  (delq nil
+        (mapcar #'(lambda (b)
                     (cond
-                     ;; Always include the current buffer.
                      ((eq (current-buffer) b) b)
-                     ((buffer-file-name b) b)
-                     ((char-equal ?\  (aref (buffer-name b) 0)) nil)
+                     ((equal "buffer *spacemacs*" (buffer-name b)) b)
+                     ((char-equal ?* (aref (buffer-name b) 0)) nil)
+                     ((char-equal ?\ (aref (buffer-name b) 0)) nil)
                      ((buffer-live-p b) b)))
                 (buffer-list))))
 
