@@ -1687,7 +1687,9 @@ visiting a file.  The current buffer is always included."
         (mapcar #'(lambda (b)
                     (cond
                      ((eq (current-buffer) b) b)
-                     ((equal "buffer *spacemacs*" (buffer-name b)) b)
+                     ((and (<= 6 (length (buffer-name b)))
+                           (equal "magit:" (subseq (buffer-name b) 0 6))) nil)
+                     ((equal "*spacemacs*" (buffer-name b)) b)
                      ((char-equal ?* (aref (buffer-name b) 0)) nil)
                      ((char-equal ?\ (aref (buffer-name b) 0)) nil)
                      ((buffer-live-p b) b)))
