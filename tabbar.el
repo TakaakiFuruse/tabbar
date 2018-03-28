@@ -1689,6 +1689,8 @@ visiting a file.  The current buffer is always included."
                      ((eq (current-buffer) b) b)
                      ((and (<= 6 (length (buffer-name b)))
                            (equal "magit:" (subseq (buffer-name b) 0 6))) nil)
+                     ((and (<= 6 (length (buffer-name b)))
+                           (equal "magit-" (subseq (buffer-name b) 0 6))) nil)
                      ((equal "*spacemacs*" (buffer-name b)) b)
                      ((char-equal ?* (aref (buffer-name b) 0)) nil)
                      ((char-equal ?\ (aref (buffer-name b) 0)) nil)
